@@ -1,45 +1,48 @@
-const formulaire = document.getElementById('form');
+const form = document.getElementById('form');
 const citation = document.getElementById('citation');
-const nom = document.getElementById('name');
+const nom = document.getElementById('nom-auteur');
 const button = document.getElementById('submit');
-// const quote = document.getElementsByClassName('quote');
 
-let text = document.getElementsByClassName('text');
-let author = document.getElementsByClassName('author');
-let quote = document.getElementsByClassName('quote');
+let quoteCount = 0
 
-console.log(formulaire);
+
+console.log(form);
 console.log(citation);
 console.log(nom);
 console.log(button);
-console.log(quote);
 
-console.log(text);
-console.log(author);
 
-// function getTheValue(text, author) {
-//     console.log(text);
-//     console.log(author);
-// }
 
-formulaire.addEventListener('input', () => {
-    console.log("test")
+form.addEventListener('submit', (event) => {
+
+    event.preventDefault()
+    const text = document.getElementById('citation').value;
+    const author = document.getElementById('nom-auteur').value;
+    console.log(text);
+    console.log(author);
+
+    addQuote(text, author);
 })
 
-button.addEventListener('submit', (event) => {
-    event.preventDefault()
-    console.log("test2")
-    event.preventDefault()
-})
+function addQuote(text, author) {
 
-function addQuote(citation, nom) {
-    citation = document.createElement('p');
-    citation.innerText = "test"
-    nom = document.createElement('p');
-    nom.innerText = "test2"
-    quote = document.createElement('div');
-    quote.innerText = `${citation} ${nom}`
+    quoteCount ++
+    document.getElementById('count').innerText = `${quoteCount} citations`
+
+    const paragraphText = document.createElement('p');
+    paragraphText.classList.add('text');
+    paragraphText.innerText = text;
+
+    const paragraphAuthor = document.createElement('p');
+    paragraphAuthor.classList.add('author');
+    paragraphAuthor.innerText = author;
+
+    const divQuote = document.createElement('div');
+    divQuote.classList.add('quote');
+
+    divQuote.appendChild(paragraphText);
+    divQuote.appendChild(paragraphAuthor);
+
+    document.getElementById('quote-list').appendChild(divQuote);
+
 }
-
-console.log(addQuote('Citation : "On ne naît pas femme, on le devient".', 'Autrice : Simone de Beauvoir'));
-
